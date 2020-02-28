@@ -3,12 +3,13 @@ import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
 import Header from './components/Header';
 import Error from './components/Error';
 import Input from './components/Input';
+import TodoItem from './components/TodoItem';
 
 export default class App extends React.Component {
   state = {
-      input: "",
+      input: '',
       list: [
-        { id: 0, title: "work", status: false },
+        { id: 0, title: "start a to-do list", status: false },
         { id: 2, title: "appointment", status: false }
       ]
   }
@@ -16,15 +17,16 @@ export default class App extends React.Component {
 addNew () {
 let list = this.state.list;
 
+
 list.unshift({
   id: list.length +1,
-  todo: this.state.input,
+  title: this.state.input,
   done: false,
 })
 
 this.setState({
-  list,
-  input: ''
+  list: list,
+  input: "",
 });
 
 }
@@ -43,10 +45,11 @@ this.setState({
         />
         <FlatList 
           data={this.state.list}
+          extraData={this.state}
           keyExtractor={(item, index) => index.toString() }
           renderItem={({item,index}) => {
             return (
-              <TodoItem />
+              <TodoItem TodoItem={item} />
             )
           }}
         />
