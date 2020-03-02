@@ -11,14 +11,12 @@ const Input = props => {
   return (
     <View style={styles.container}>
       <TextInput
+        placeholder='Enter your task here'
         style={styles.input}
         onChangeText={input => props.textChange(input)}
         value={props.input}
       />
-      <TouchableOpacity 
-        style={styles.add} 
-        onPress={props.addNew}
-      >
+      <TouchableOpacity style={styles.add} onPress={props.addNew}>
         <Text style={styles.addText}>+</Text>
       </TouchableOpacity>
     </View>
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     height: 35,
-    paddingLeft: 25
+    paddingLeft: 20
   },
   add: {
     width: 100,

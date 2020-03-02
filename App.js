@@ -1,56 +1,79 @@
 import React from "react";
 import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
-import Header from './components/Header';
-import Error from './components/Error';
-import Input from './components/Input';
-import TodoItem from './components/TodoItem';
+import Header from "./components/Header";
+// import Error from "./components/Error";
+import Input from "./components/Input";
+import TodoItem from "./components/TodoItem";
 
 export default class App extends React.Component {
   state = {
-      input: '',
-      list: [
-        { id: 0, title: "start a to-do list", status: false },
-        { id: 2, title: "appointment", status: false }
-      ]
+    input: "",
+    list: [
+      { id: 0, title: "start a to-do list", status: false },
+      { id: 2, title: "appointment", status: false }
+    ]
+  };
+
+  addNew() {
+    let list = this.state.list;
+
+    list.unshift({
+      id: list.length + 1,
+      title: this.state.input,
+      status: false
+    });
+
+    this.setState({
+      list,
+      input: ""
+    });
   }
 
-addNew () {
-let list = this.state.list;
+  toggleStatus(item) {
+    let list = this.state.list;
 
+    list = list.map(check => {
+      if (check.id == item.id) {
+        check.status = !check.status;
+      }
 
-list.unshift({
-  id: list.length +1,
-  title: this.state.input,
-  done: false,
-})
+      return check;
+    });
 
-this.setState({
-  list: list,
-  input: "",
-});
+    this.setState({ list });
+  }
 
-}
+  removeItem (item) {
+    let list = this.state.list;
 
+    list = list.filter((check) => check.id !== item.id);
+
+    this.setState({ list });
+  }
+  
 
   render() {
-    const statusbar = (Platform.OS == 'android') ? <View style={styles.statusbar}></View> : <View></View>
-
     return (
       <View style={styles.container}>
-        {statusbar}
-        <Header title='My To Do List'/>
-        <Input 
-          textChange={input => this.setState({ input })} 
+        <View style={styles.statusbar}></View>
+        <Header title="My To Do List" />
+        <Input
+          textChange={input => this.setState({ input })}
           addNew={() => this.addNew()}
+          input={this.state.input}
         />
-        <FlatList 
+        <FlatList
           data={this.state.list}
           extraData={this.state}
-          keyExtractor={(item, index) => index.toString() }
-          renderItem={({item,index}) => {
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => {
             return (
-              <TodoItem TodoItem={item} />
-            )
+              <TodoItem
+                TodoItem={item}
+                toggleStatus={() => this.toggleStatus(item)}
+                removeItem={() => this.removeItem(item)}
+              />
+            );
           }}
         />
       </View>
@@ -60,10 +83,9 @@ this.setState({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
   },
   statusbar: {
-    height: 24,
-  },
-  
+    height: 24
+  }
 });
