@@ -16,27 +16,29 @@ export default class Cards extends React.Component {
 
     return (
       <TouchableOpacity
-        style={styles.Cards}
+        style={styles.cardContainer}
         onPress={() => this.props.toggleStatus()}
       >
-        <View>
-          {Cards.status ? (
-            <Image style={styles.checkbox} source={checktrue} opacity={0.3} />
-          ) : (
-            <Image style={styles.checkbox} source={checkfalse} />
-          )}
-        </View>
+        <View style={styles.Cards}>
+          <View>
+            {Cards.status ? (
+              <Image style={styles.checkBox} source={checktrue} opacity={0.3} />
+            ) : (
+              <Image style={styles.checkBox} source={checkfalse} />
+            )}
+          </View>
 
-        <View style={styles.content}>
-          <Text
-            style={
-              Cards.status
-                ? { textDecorationLine: "line-through", opacity: 0.3 }
-                : { textDecorationLine: "none" }
-            }
-          >
-            {Cards.title}
-          </Text>
+          <View style={styles.content}>
+            <Text
+              style={
+                Cards.status
+                  ? { textDecorationLine: "line-through", opacity: 0.3 }
+                  : { textDecorationLine: "none" }
+              }
+            >
+              {Cards.title}
+            </Text>
+          </View>
         </View>
 
         <Button
@@ -51,22 +53,28 @@ export default class Cards extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  Cards: {
+  cardContainer: {
     width: "100%",
-    borderBottomColor: "#DDD",
-    borderBottomWidth: 1,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingLeft: 20
+    justifyContent: "space-between"
+  },
+
+  Cards: {
+    borderBottomColor: "#dedede",
+    borderBottomWidth: 1,
+    flexGrow: 1,
+    paddingLeft: 20,
+    flexDirection: "row",
+    alignItems: "center"
   },
 
   removeButton: {
     width: 100
   },
 
-  checkbox: {
+  checkBox: {
     width: 20,
-    height: 20
+    height: 20,
+    marginRight: 10
   }
 });

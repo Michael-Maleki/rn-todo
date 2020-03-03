@@ -15,8 +15,8 @@ export default class App extends React.Component {
   state = {
     input: "",
     list: [
-      { id: 0, title: "start a to-do list", status: true },
-      { id: 2, title: "appointment", status: false }
+      { id: 0, title: "Finish to-do app", status: true },
+      { id: 2, title: "Become the best", status: false }
     ]
   };
 
@@ -24,7 +24,7 @@ export default class App extends React.Component {
     let list = this.state.list;
 
     if (this.state.input == "") {
-      Alert.alert("Whoops", "Please enter a task");
+      Alert.alert("Whoops!", "Please enter a task.");
     } else {
       list.unshift({
         id: list.length + 1,
@@ -63,7 +63,7 @@ export default class App extends React.Component {
 
   clearAll() {
     Alert.alert(
-      "Please confirm",
+      "Please confirm.",
       "Are you sure you wish to clear all tasks?",
       [
         {
@@ -82,7 +82,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <View style={styles.statusbar}></View>
         <Header
-          title="My Tew-Dew"
+          title="My Tew-Dew List"
           clearAll={() => this.clearAll()}
           list={this.state.list}
         />

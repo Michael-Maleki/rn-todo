@@ -16,6 +16,7 @@ const Input = props => {
         style={styles.input}
         onChangeText={input => props.textChange(input)}
         value={props.input}
+        underlineColorAndroid="transparent"
       />
 
       <View style={styles.counter}>
