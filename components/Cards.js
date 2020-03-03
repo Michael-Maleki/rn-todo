@@ -41,12 +41,17 @@ export default class Cards extends React.Component {
           </View>
         </View>
 
-        <Button
+        <TouchableOpacity
           style={styles.buttonLayout}
-          title="   ✖   "
-          color={Cards.status ? "lightgrey" : "crimson"}
           onPress={() => this.props.removeItem()}
-        />
+        >
+          <View
+            style={styles.buttonStyle}
+            backgroundColor={Cards.status ? "lightgrey" : "#d33336"}
+          >
+            <Text style={styles.buttonText}>✖</Text>
+          </View>
+        </TouchableOpacity>
       </TouchableOpacity>
     );
   }
@@ -62,19 +67,34 @@ const styles = StyleSheet.create({
   Cards: {
     borderBottomColor: "#dedede",
     borderBottomWidth: 1,
-    flexGrow: 1,
+    // flexGrow: 1,
+    width: "85%",
     paddingLeft: 20,
     flexDirection: "row",
     alignItems: "center"
-  },
-
-  removeButton: {
-    width: 100
   },
 
   checkBox: {
     width: 20,
     height: 20,
     marginRight: 10
+  },
+
+  buttonLayout: {
+    width: "15%"
+  },
+
+  buttonStyle: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    color: "black",
+    borderBottomColor: "#dedede",
+    borderBottomWidth: 1
+  },
+
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 15
   }
 });

@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   add: {
-    width: 50,
+    width: "15%",
     backgroundColor: "#11d97f",
     justifyContent: "center",
     alignItems: "center"
   },
   addText: {
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 35,
     color: "#323232"
   },
   counter: {

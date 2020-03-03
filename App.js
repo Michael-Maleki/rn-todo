@@ -14,10 +14,7 @@ import Cards from "./components/Cards";
 export default class App extends React.Component {
   state = {
     input: "",
-    list: [
-      { id: 0, title: "Finish to-do app", status: true },
-      { id: 2, title: "Become the best", status: false }
-    ]
+    list: []
   };
 
   addNew() {
@@ -62,19 +59,25 @@ export default class App extends React.Component {
   }
 
   clearAll() {
-    Alert.alert(
-      "Please confirm.",
-      "Are you sure you wish to clear all tasks?",
-      [
-        {
-          text: "Not Yet",
-          onPress: () => console.log("Not Yet Pressed"),
-          style: "cancel"
-        },
-        { text: "Clear All", onPress: () => this.setState({ list: [] }) }
-      ],
-      { cancelable: true }
-    );
+    let list = this.state.list;
+
+    if (list.length <= 0) {
+      console.log("cleared empty list");
+    } else {
+      Alert.alert(
+        "Please confirm.",
+        "Are you sure you want to clear all tasks?",
+        [
+          {
+            text: "Not Yet",
+            onPress: () => console.log("Not Yet Pressed"),
+            style: "cancel"
+          },
+          { text: "Clear All", onPress: () => this.setState({ list: [] }) }
+        ],
+        { cancelable: true }
+      );
+    }
   }
 
   render() {
@@ -115,6 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   statusbar: {
-    height: 24
+    height: 44,
+    backgroundColor: "#323232"
   }
 });
