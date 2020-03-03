@@ -1,27 +1,42 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 
-const Header = (props) => {
+const Header = props => {
   return (
-    <View style={styles.header}>
-      <Text style={styles.title}> {props.title} </Text>
-    </View>
+    <>
+      <View style={styles.header}>
+        <Text style={styles.title}> {props.title} </Text>
+      </View>
+      <Button
+        style={styles.clear}
+        onPress={() => props.clearAll()}
+        title="Clear List"
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
+    flexDirection: "column",
     backgroundColor: "#323232",
     height: 60,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingLeft: 10
   },
 
   title: {
     fontSize: 30,
+    fontFamily: "",
     color: "#fff",
-    fontWeight: "bold",
-    textTransform: 'uppercase',
+    fontWeight: "bold"
+    // textTransform: 'uppercase',
+  },
+
+  clear: {
+    color: "white",
+    marginRight: 20
   }
 });
 

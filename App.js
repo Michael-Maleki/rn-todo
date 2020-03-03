@@ -1,15 +1,21 @@
 import React from "react";
-import { Platform, StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Alert
+} from "react-native";
 import Header from "./components/Header";
-// import Error from "./components/Error";
 import Input from "./components/Input";
-import TodoItem from "./components/TodoItem";
+import Cards from "./components/Cards";
 
 export default class App extends React.Component {
   state = {
     input: "",
     list: [
-      { id: 0, title: "start a to-do list", status: false },
+      { id: 0, title: "start a to-do list", status: true },
       { id: 2, title: "appointment", status: false }
     ]
   };
@@ -17,16 +23,20 @@ export default class App extends React.Component {
   addNew() {
     let list = this.state.list;
 
-    list.unshift({
-      id: list.length + 1,
-      title: this.state.input,
-      status: false
-    });
+    if (this.state.input == "") {
+      Alert.alert("Whoops", "Please enter a task");
+    } else {
+      list.unshift({
+        id: list.length + 1,
+        title: this.state.input,
+        status: false
+      });
 
-    this.setState({
-      list,
-      input: ""
-    });
+      this.setState({
+        list,
+        input: ""
+      });
+    }
   }
 
   toggleStatus(item) {
@@ -43,20 +53,39 @@ export default class App extends React.Component {
     this.setState({ list });
   }
 
-  removeItem (item) {
+  removeItem(item) {
     let list = this.state.list;
 
-    list = list.filter((check) => check.id !== item.id);
+    list = list.filter(check => check.id !== item.id);
 
     this.setState({ list });
   }
-  
+
+  clearAll() {
+    Alert.alert(
+      "Please confirm",
+      "Are you sure you wish to clear all tasks?",
+      [
+        {
+          text: "Not Yet",
+          onPress: () => console.log("Not Yet Pressed"),
+          style: "cancel"
+        },
+        { text: "Clear All", onPress: () => this.setState({ list: [] }) }
+      ],
+      { cancelable: true }
+    );
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.statusbar}></View>
-        <Header title="My To Do List" />
+        <Header
+          title="My Tew-Dew"
+          clearAll={() => this.clearAll()}
+          list={this.state.list}
+        />
         <Input
           textChange={input => this.setState({ input })}
           addNew={() => this.addNew()}
@@ -68,8 +97,8 @@ export default class App extends React.Component {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
-              <TodoItem
-                TodoItem={item}
+              <Cards
+                Cards={item}
                 toggleStatus={() => this.toggleStatus(item)}
                 removeItem={() => this.removeItem(item)}
               />

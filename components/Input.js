@@ -11,11 +11,17 @@ const Input = props => {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder='Enter your task here'
+        maxLength={35}
+        placeholder="Enter your task here"
         style={styles.input}
         onChangeText={input => props.textChange(input)}
         value={props.input}
       />
+
+      <View style={styles.counter}>
+        <Text style={styles.counterText}>{props.input.length}/35</Text>
+      </View>
+
       <TouchableOpacity style={styles.add} onPress={props.addNew}>
         <Text style={styles.addText}>+</Text>
       </TouchableOpacity>
@@ -26,21 +32,18 @@ const Input = props => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    shadowOffset: { width: 0, height: 3 },
-    shadowColor: "#171717",
-    shadowOpacity: 0.1
+    justifyContent: "flex-start"
   },
   input: {
     backgroundColor: "#F3F3F3",
     flex: 1,
-    fontSize: 18,
-    height: 35,
+    fontSize: 15,
+    height: 50,
     paddingLeft: 20
   },
   add: {
-    width: 100,
-    backgroundColor: "lightgray",
+    width: 50,
+    backgroundColor: "#11d97f",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -48,6 +51,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     color: "#323232"
+  },
+  counter: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F3F3F3"
+  },
+  counterText: {
+    fontSize: 12,
+    opacity: 0.4,
+    padding: 10
   }
 });
 
